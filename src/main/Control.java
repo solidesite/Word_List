@@ -1,5 +1,11 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -70,6 +76,46 @@ public class Control {
 		voca.eng = input2;
 		voca.kor = input3;
 		System.out.println(num + "번이 수정되었습니다.");
+	}
+
+	public void save() {
+		FileWriter fw;
+		try {
+			fw = new FileWriter("c:/filesave/word_list.txt");
+			for (int i = 0; i < vocaArr.size(); i++) {
+				String data = vocaArr.get(i).eng + "," + vocaArr.get(i).kor + "\r\n";
+				fw.write(data);
+			}
+			fw.close();
+			System.out.println("정상 실행");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void load() {
+		File file = new File("c:/filesave/test2.txt");
+		if (file.exists() == true) {
+			try {
+				// 한 줄씩 읽기
+				BufferedReader br = new BufferedReader(new FileReader("c:/filesave/test2.txt"));
+				while (true) {
+					String line = br.readLine();
+					if (line == null)
+						break;
+					String[] arr = line.split(",");
+					String eng = arr[0];
+					String kor = arr[1];
+					vocaArr.add(new Voca(eng, kor));
+				}
+				br.close();
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
