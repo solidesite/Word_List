@@ -10,7 +10,10 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
 public class Main {
@@ -38,27 +41,45 @@ public class Main {
 
 		JLabel engLb = new JLabel("영어 입력");
 		engLb.setSize(100, 35);
-		engLb.setLocation(20, 100);
+		engLb.setLocation(30, 100);
 		engLb.setOpaque(true);
-		engLb.setHorizontalAlignment(JLabel.CENTER);
+		engLb.setBackground(Color.white);
 		frame.add(engLb);
 
 		JLabel korLb = new JLabel("한글 입력");
 		korLb.setSize(100, 35);
-		korLb.setLocation(20, 145);
+		korLb.setLocation(30, 140);
 		korLb.setOpaque(true);
-		korLb.setHorizontalAlignment(JLabel.CENTER);
+		korLb.setBackground(Color.white);
 		frame.add(korLb);
 
-		JTextField korTf = new JTextField();
-		korTf.setLocation(130, 100);
-		korTf.setSize(200, 35);
-		frame.add(korTf);
-
 		JTextField engTf = new JTextField();
-		engTf.setLocation(130, 145);
+		engTf.setLocation(130, 100);
 		engTf.setSize(200, 35);
 		frame.add(engTf);
+
+		JTextField korTf = new JTextField();
+		korTf.setLocation(130, 140);
+		korTf.setSize(200, 35);
+		frame.add(korTf);
+		
+		JButton addBtn = new JButton("추가");
+		addBtn.setLocation(340,100);
+		addBtn.setSize(130,35);
+		frame.add(addBtn);
+		
+		JButton changeBtn = new JButton("수정");
+		changeBtn.setLocation(340,140);
+		changeBtn.setSize(130,35);
+		frame.add(changeBtn);
+		
+		DefaultListModel arr = new DefaultListModel();
+		JList list = new JList(arr);
+		list.setLocation(30,200);
+		list.setSize(440,700);
+		arr.addElement("aaa");
+		frame.add(list);
+		
 
 		frame.setVisible(true);
 
