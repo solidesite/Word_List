@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import javax.swing.JTextField;
 public class Main {
 	public static void main(String[] args) {
 		Control con = new Control();
+		ArrayList<Voca> vocaArr = new ArrayList<Voca>();
+		Voca v = new Voca();
 
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		Frame frame = new Frame("frame");
@@ -62,27 +66,64 @@ public class Main {
 		korTf.setLocation(130, 140);
 		korTf.setSize(200, 35);
 		frame.add(korTf);
-		
+
 		JButton addBtn = new JButton("추가");
-		addBtn.setLocation(340,100);
-		addBtn.setSize(130,35);
+		addBtn.setLocation(340, 100);
+		addBtn.setSize(130, 35);
 		frame.add(addBtn);
-		
+
 		JButton changeBtn = new JButton("수정");
-		changeBtn.setLocation(340,140);
-		changeBtn.setSize(130,35);
+		changeBtn.setLocation(340, 140);
+		changeBtn.setSize(130, 35);
 		frame.add(changeBtn);
-		
+
+		JButton deleteBtn = new JButton("삭제");
+		deleteBtn.setLocation(340, 640);
+		deleteBtn.setSize(130, 35);
+		frame.add(deleteBtn);
+
 		DefaultListModel arr = new DefaultListModel();
 		JList list = new JList(arr);
-		list.setLocation(30,200);
-		list.setSize(440,700);
+		list.setLocation(30, 200);
+		list.setSize(440, 400);
 		arr.addElement("aaa");
 		frame.add(list);
-		
 
 		frame.setVisible(true);
 
+		// 추가 버튼
+		addBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String eng = engTf.getText();
+				String kor = korTf.getText();
+				Voca voca = new Voca(eng, kor);
+				vocaArr.add(voca);
+				arr.clear();
+				for (int i = 0; i < vocaArr.size(); i++) {
+					Voca temp = vocaArr.get(i);
+					arr.addElement(temp.getEng() + " : " + temp.getKor());
+				}
+			}
+		});
+
+		// 삭제 버튼
+		deleteBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int idx = list.getSelectedIndex();
+				if (idx == -1) {
+
+				} else {
+					vocaArr.remove(idx);
+					arr.clear();
+					for (int i = 0; i < vocaArr.size(); i++) {
+						Voca temp = vocaArr.get(i);
+						arr.addElement(temp.getEng() + " : " + temp.getKor());
+					}
+				}
+			}
+		});
 		// 닫기 버튼
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
