@@ -124,6 +124,34 @@ public class Main {
 				}
 			}
 		});
+		
+		// 수정 버튼
+		changeBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int idx = list.getSelectedIndex();
+				if (idx == -1) {
+
+				} else {
+					vocaArr.remove(idx);
+					arr.clear();
+					for (int i = 0; i < vocaArr.size(); i++) {
+						Voca temp = vocaArr.get(i);
+						arr.addElement(temp.getEng() + " : " + temp.getKor());
+					}
+				}
+				String eng = engTf.getText();
+				String kor = korTf.getText();
+				Voca voca = new Voca(eng, kor);
+				vocaArr.add(voca);
+				arr.clear();
+				for (int i = 0; i < vocaArr.size(); i++) {
+					Voca temp = vocaArr.get(i);
+					arr.addElement(temp.getEng() + " : " + temp.getKor());
+				}
+			}
+		});
+		
 		// 닫기 버튼
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
